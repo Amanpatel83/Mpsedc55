@@ -1,0 +1,2684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MPSEDC Redesigned - Ultimate Version</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ========== CSS Variables ========== */
+:root {
+    /* Primary Theme Colors */
+    --primary-blue: #0A2F50;
+    --secondary-blue: #1A4D7C;
+    --tertiary-blue: #2A6C9E;
+
+    /* Accents - Enhanced for vibrancy */
+    --accent-green: #b9c3c3;
+    --accent-yellow: #b9c3c3;
+
+      /* --accent-green: #ff0505;
+    --accent-yellow: #ff0505; */
+    
+    --accent-blue-light: #98d5d5; /* New vibrant light blue */
+    --accent-blue-dark: #39717a; /* New darker accent */
+
+    /* Text Colors */
+    --text-light: #FFFFFF;
+    --text-dark: #e0e0e0; /* Lighter dark text for contrast on glass */
+    --text-accent: var(--accent-yellow); /* Keep the yellow accent for links */
+    --text-hover: var(--accent-green); /* Green on hover for a change */
+
+    /* Backgrounds - Refined for glass effect */
+    --bg-light: #f8f9fa; /* Not actively used for full background due to image */
+    --header-bg-color: rgba(10, 25, 40, 0.4); /* Slightly darker, more opaque for header */
+    --nav-bg-color: rgba(5, 15, 25, 0.5); /* Even darker for nav for depth */
+    --dropdown-bg-color: rgba(5, 15, 25, 0.9); /* More opaque for readability */
+    --dropdown-item-hover-bg: rgba(255, 255, 255, 0.15); /* Stronger hover feedback */
+    --top-bar-bg-button: rgba(255, 255, 255, 0.15); /* Glassy button background */
+    --top-bar-text-color: #f0f0f0; /* Explicit color for top bar text */
+
+
+    /* Borders & Shadows - Enhanced for glass effect */
+    --border-color: rgba(255, 255, 255, 0.2); /* Slightly more visible border */
+    --shadow-sm: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    --shadow-md: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    --shadow-subtle: 0 2px 10px rgba(0, 0, 0, 0.25); /* Darker subtle shadow */
+    --glass-shadow: 0 8px 30px rgba(0, 0, 0, 0.35); /* Stronger glass shadow */
+
+    /* Misc */
+    --transition-speed: 0.4s ease-in-out; /* Slightly slower, smoother transitions */
+}
+
+/* ========== Body and Global Settings ========== */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', 'Segoe UI', sans-serif;
+    line-height: 1.6;
+    color: var(--text-light);
+    background-color: #0d1a2f; /* Fallback for background image */
+    scroll-behavior: smooth;
+
+    /* Assuming this CSS is applied to the body or a main container */
+    /*
+      * Background Images:
+      * - The first URL is positioned at the top center and its size is 100% of the container width.
+      * - The second URL is positioned at the bottom and covers the remaining space.
+      *
+      * IMPORTANT: Ensure the paths to your images are correct.
+      * If these images are in the same folder as your CSS file, you might use:
+      * url("ChatGPT Image Jul 28, 2025, 03_24_50 PM.png"),
+      * url("ChatGPT Image Jul 29, 2025, 12_17_45 PM.png");
+      * If they are in specific subdirectories as indicated, then the paths are likely correct.
+      */
+      background-image:
+         url("https://raw.githubusercontent.com/Amanpatel83/MPSEDCWebsite/main/ChatGPT\ Image\ Aug\ 4\,\ 2025\,\ 04_18_11\ PM.png"), /* First image */
+         url("https://raw.githubusercontent.com/Amanpatel83/MPSEDCWebsite/main/ChatGPT\ Image\ Aug\ 14\,\ 2025\,\ 02_57_15\ PM.png");   /* Second image */
+
+    /*
+      * Background Position:
+      * - top center for the first image
+      * - bottom for the second image
+      */
+    background-position: top center, bottom;
+    background-attachment: scroll,fixed;
+    /*
+      * Background Repeat:
+      * - no-repeat for both to prevent tiling.
+      */
+    background-repeat: no-repeat, no-repeat;
+
+    /*
+      * Background Size:
+      * - 100% auto for BOTH images:
+      * - The image will take 100% of the container's width.
+      * - The height will adjust automatically to maintain the image's original aspect ratio,
+      * ensuring it's not compressed or distorted.
+      */
+    background-size: 100% 30%, 100% 100%;
+
+    /*
+      * Flexbox for Layout:
+      * - display: flex and flex-direction: column are good for vertical stacking of content.
+      */
+    display: flex;
+    flex-direction: column;
+
+    /*
+      * Optional: Background color as a fallback or for areas not covered by images.
+      */
+    background-color: #287a9b; /* A pleasant blue-green, adjust as needed */
+
+    /*
+      * Overflow Handling:
+      * - overflow-x: hidden is good to prevent horizontal scrollbars caused by content.
+      */
+    overflow-x: hidden;
+
+    /*
+      * Minimum Height:
+      * - min-height: 100vh ensures the element takes at least the full viewport height.
+      * This is especially important if your content is short, to ensure the background
+      * is visible across the entire viewport.
+      */
+    min-height: 100vh;
+
+    /* Optional: Uncomment if you want one or both images to stay fixed during scroll */
+    /* background-attachment: fixed, fixed; */
+
+}
+
+
+/* Space for fixed header */
+body::before {
+    content: '';
+    display: block;
+    height: 150px; /* Adjust this height based on your header's total height */
+    /* This empty pseudo-element pushes the main content down */
+}
+
+/* ========== Header (Glass Effect) ========== */
+.site-header {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    backdrop-filter: blur(20px); /* Increased blur for more glass effect */
+    background: var(--header-bg-color); /* Darker header background */
+    border-bottom: 1px solid var(--border-color);
+    z-index: 1000; /* Ensure header is on top */
+    box-shadow: var(--glass-shadow); /* Stronger shadow */
+    transition: background var(--transition-speed);
+    padding-top: 5px; /* Reduced initial padding */
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 5px 30px; /* Reduced vertical padding */
+    font-size: 0.8em; /* Slightly smaller font */
+    color: var(--top-bar-text-color); /* Using the new variable */
+    gap: 10px; /* Reduced gap */
+    align-items: center;
+    margin-bottom: 5px; /* Reduced margin */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08); /* Subtle separator */
+}
+
+.top-bar-section {
+    display: flex;
+    gap: 15px; /* Reduced gap */
+    align-items: center;
+}
+
+.top-bar-section a {
+    color: var(--top-bar-text-color);
+    text-decoration: none;
+    transition: color var(--transition-speed);
+    display: flex;
+    align-items: center;
+    gap: 4px; /* Reduced gap */
+}
+
+.top-bar-section a:hover {
+    color: var(--text-accent);
+}
+
+.top-bar-section button {
+    background: var(--top-bar-bg-button); /* Glassy button background */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Lighter border */
+    color: var(--text-light);
+    padding: 4px 10px; /* Smaller padding */
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background var(--transition-speed), transform 0.2s, color var(--transition-speed), box-shadow var(--transition-speed);
+    font-weight: 500;
+    backdrop-filter: blur(8px); /* More blur for button */
+    text-shadow: 0 0 5px rgba(0,0,0,0.4);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.top-bar-section button:hover {
+    background: rgba(255, 255, 255, 0.25); /* Lighter on hover */
+    transform: translateY(-1px); /* Subtle lift */
+    color: var(--accent-yellow); /* Accent color on hover */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.top-bar-section input[type="text"] {
+    background: var(--top-bar-bg-button);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 5px 10px; /* Smaller padding */
+    border-radius: 4px;
+    color: var(--text-light);
+    font-size: 0.85em; /* Slightly smaller font */
+    transition: border-color var(--transition-speed), background var(--transition-speed);
+    width: 140px; /* Slightly narrower */
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.15);
+    backdrop-filter: blur(8px);
+}
+
+.top-bar-section input[type="text"]::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.top-bar-section input[type="text"]:focus {
+    outline: none;
+    border-color: var(--accent-green); /* Green accent on focus */
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: inset 0 1px 5px rgba(0,0,0,0.2), 0 0 8px rgba(0,255,100,0.3); /* Subtle glow */
+}
+
+.logo-branding {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 20px; /* Adjusted padding */
+    /* color: var(--text-light); */
+    flex-wrap: wrap;
+    gap: 15px; /* Reduced gap */
+    color: #000000;
+    /* flex-wrap: wrap; */
+    gap: 15px;
+    background: linear-gradient(200deg, #ffffff, #e0f7ff);
+    
+}
+
+.logo-branding img {
+    height: 70px; /* Slightly smaller logos */
+    object-fit: contain;
+    filter: drop-shadow(0 0 8px rgba(0,0,0,0.2)); /* Stronger shadow */
+}
+
+.main-title {
+    text-align: center;
+    flex-grow: 1;
+    margin: 0 15px; /* Reduced margin */
+}
+
+.main-title h1 {
+    font-size: 1.4em; /* Adjusted font size */
+    margin: 0;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Stronger text shadow */
+}
+
+.main-title .tagline {
+    font-size: 0.9em; /* Adjusted font size */
+    /* font-style: italic; */
+    opacity: 0.9;
+    margin-top: 3px; /* Reduced margin */
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.main-nav {
+    background: var(--nav-bg-color); /* Darker, more opaque nav background */
+    padding: 12px 0; /* Reduced vertical padding */
+    border-top: 1px solid var(--border-color);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Stronger shadow */
+}
+
+.main-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0 10px; /* Reduced padding */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px; /* Reduced gap */
+    justify-content: center;
+}
+
+.main-nav a {
+    color: var(--text-light);
+    text-decoration: none;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px; /* Reduced gap */
+    transition: color var(--transition-speed), transform 0.2s;
+    position: relative;
+    padding-bottom: 4px; /* Space for underline */
+    font-size: 0.95em; /* Slightly smaller font */
+}
+
+.main-nav a:hover {
+    color: var(--text-hover); /* Green accent on hover */
+    transform: translateY(-2px); /* Subtle lift */
+}
+
+.main-nav a::after {
+    content: '';
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--text-accent);
+    transition: width var(--transition-speed) ease, background-color var(--transition-speed);
+}
+
+.main-nav a:hover::after {
+    width: 100%;
+    background: var(--text-hover); /* Match hover color */
+}
+
+.has-submenu {
+    position: relative;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 10px); /* Reduced gap */
+    left: 0;
+    background: var(--dropdown-bg-color); /* Darker, more opaque */
+    padding: 12px; /* Reduced padding */
+    border-radius: 6px; /* Slightly smaller radius */
+    min-width: 220px; /* Adjusted width */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5); /* Stronger shadow */
+    backdrop-filter: blur(12px); /* Increased blur */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px); /* Reduced slide */
+    transition: opacity var(--transition-speed), transform var(--transition-speed), visibility var(--transition-speed);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.has-submenu:hover > .dropdown-menu {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-menu li {
+    margin: 6px 0; /* Reduced margin */
+    list-style: none;
+}
+
+.dropdown-menu a {
+    color: var(--text-dark); /* Lighter text for dropdown items */
+    font-size: 0.9em; /* Slightly smaller dropdown text */
+    font-weight: 400;
+    padding: 6px 8px; /* Reduced padding */
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Reduced gap */
+    border-radius: 3px;
+    transition: color var(--transition-speed), background-color var(--transition-speed), padding-left var(--transition-speed);
+}
+
+.dropdown-menu a:hover {
+    color: var(--accent-green); /* Green accent on hover */
+    background-color: var(--dropdown-item-hover-bg);
+    padding-left: 12px; /* Reduced indent */
+    transform: none;
+}
+
+/* Mobile Menu */
+.hamburger-menu {
+    display: none;
+    cursor: pointer;
+    font-size: 28px; /* Slightly smaller icon */
+    color: var(--text-light);
+    margin-left: 15px; /* Reduced margin */
+    transition: transform 0.2s;
+}
+
+.hamburger-menu:hover {
+    transform: scale(1.05); /* Subtle scale */
+}
+
+.mobile-nav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8); /* Darker overlay */
+    z-index: 1005; /* Above header */
+    display: none;
+}
+
+.mobile-nav-sidebar {
+    position: fixed;
+    top: 0;
+    right: -320px; /* Slightly wider sidebar hidden off-screen */
+    width: 300px;
+    height: 100%;
+    background: var(--dropdown-bg-color);
+    z-index: 1006;
+    box-shadow: -8px 0 20px rgba(0, 0, 0, 0.4); /* Stronger shadow */
+    transition: right 0.4s ease-out;
+    overflow-y: auto;
+    padding: 20px;
+    box-sizing: border-box;
+    border-left: 1px solid var(--border-color);
+}
+
+.mobile-nav-sidebar.active {
+    right: 0;
+}
+
+.close-btn {
+    font-size: 26px; /* Slightly smaller */
+    color: var(--text-light);
+    position: absolute;
+    top: 12px; /* Adjusted position */
+    right: 15px; /* Adjusted position */
+    cursor: pointer;
+    transition: color var(--transition-speed), transform 0.2s;
+}
+
+.close-btn:hover {
+    color: var(--accent-green); /* Green accent on hover */
+    transform: rotate(90deg) scale(1.1); /* Rotate and subtle scale */
+}
+
+.mobile-main-menu {
+    list-style: none;
+    padding: 50px 0 20px 0; /* Padding for close button */
+    margin: 0;
+}
+
+.mobile-main-menu li {
+    margin-bottom: 8px; /* Reduced margin */
+    border-bottom: 1px solid rgba(255,255,255,0.08); /* More visible separator */
+    padding-bottom: 8px;
+}
+
+.mobile-main-menu li:last-child {
+    border-bottom: none;
+}
+
+.mobile-main-menu a {
+    color: var(--text-dark);
+    text-decoration: none;
+    font-size: 1em; /* Slightly smaller */
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Reduced gap */
+    padding: 8px 5px; /* Reduced padding */
+    transition: color var(--transition-speed), background-color var(--transition-speed);
+}
+
+.mobile-main-menu a:hover {
+    color: var(--accent-green);
+    background-color: rgba(255,255,255,0.08); /* More noticeable hover */
+    border-radius: 4px;
+}
+
+.mobile-main-menu .dropdown-menu {
+    position: static;
+    background: rgba(0, 0, 0, 0.3); /* Lighter background for sub-items */
+    box-shadow: none;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding: 8px 0 0 12px; /* Reduced indent */
+    margin-top: 8px;
+    border-radius: 0;
+    min-width: unset;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.mobile-main-menu .dropdown-menu li {
+    margin: 4px 0; /* Reduced margin */
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.mobile-main-menu .dropdown-menu a {
+    font-size: 0.95em; /* Slightly larger */
+    padding: 5px 5px;
+    gap: 6px;
+}
+
+.mobile-main-menu .mega-menu {
+    display: none;
+    flex-direction: column;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 8px;
+    margin-top: 8px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.mobile-main-menu .mega-menu.active {
+    display: flex;
+}
+
+.mobile-main-menu .mega-menu-column {
+    margin-bottom: 10px; /* Reduced margin */
+}
+
+.mobile-main-menu .mega-menu-column h4 {
+    color: var(--accent-yellow); /* Yellow accent for mega menu headings */
+    margin-top: 0;
+    margin-bottom: 6px; /* Reduced margin */
+    font-size: 0.95em; /* Slightly smaller */
+    font-weight: 600;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 4px;
+}
+
+.mobile-main-menu .mega-menu-column ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.mobile-main-menu .mega-menu-column li {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.mobile-main-menu .mega-menu-column a {
+    font-size: 0.85em; /* Slightly smaller */
+    padding: 4px 4px 4px 8px; /* Further indent */
+    color: var(--text-dark);
+    gap: 6px;
+}
+
+/* Adjustments for dropdown caret in mobile */
+.mobile-main-menu .has-submenu > a .fa-caret-down {
+    margin-left: auto;
+    transition: transform var(--transition-speed);
+}
+
+.mobile-main-menu .has-submenu.open > a .fa-caret-down {
+    transform: rotate(180deg);
+}
+/* ==================== Mobile Phones ==================== */
+@media (max-width: 480px) {
+    /* General Layout */
+    body, html {
+        font-size: 14px; /* Slightly smaller base font */
+        background-size: 100% 25%, 100% 100%; /* Adjust first image height for small screens */
+    }
+
+    body::before {
+        height: 100px; /* Less offset for fixed header */
+    }
+
+    /* Top Bar */
+    .top-bar {
+        flex-direction: column;
+        padding: 8px 15px;
+        font-size: 0.75em;
+        gap: 10px;
+    }
+
+    .top-bar-section {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .top-bar-section input[type="text"] {
+        width: 100px;
+        font-size: 0.75em;
+    }
+
+    /* Logo and Branding */
+    .logo-branding {
+        flex-direction: column;
+        align-items: center;
+        padding: 8px 10px;
+        gap: 8px;
+        text-align: center;
+    }
+    
+
+    .logo-branding img {
+        height: 50px;
+    }
+
+    .main-title h1 {
+        font-size: 1.1em;
+    }
+
+    .main-title .tagline {
+        font-size: 0.8em;
+    }
+
+    /* Main Navigation */
+    .main-nav {
+        display: none; /* Hide desktop nav */
+    }
+
+    /* Show Hamburger Menu */
+    .hamburger-menu {
+        display: block;
+        font-size: 24px;
+        margin-left: auto;
+        padding: 8px;
+        color: black;
+    }
+
+    /* Mobile Nav Sidebar */
+    .mobile-nav-sidebar {
+        width: 85%; /* Take most of screen width */
+        right: -100%;
+    }
+
+    /* Mobile Menu Items */
+    .mobile-main-menu a {
+        font-size: 0.9em;
+        padding: 10px;
+    }
+
+    .mobile-main-menu .dropdown-menu a {
+        font-size: 0.85em;
+        padding: 6px 10px;
+    }
+
+    /* Dropdown caret touch-friendly size */
+    .mobile-main-menu .fa-caret-down {
+        font-size: 14px;
+    }
+}
+
+/* about */
+
+  .AboutMPSEDC {
+  animation: backgroundAnimation 15s ease infinite;
+  margin: 311px 50px;
+  background: rgba(28, 35, 54, 0.8); /* Softer but brighter */
+  border-radius: 20px;
+  padding: 40px;
+  width: 90%;
+  max-width: 750px;
+  box-shadow:
+    0 20px 40px rgba(216, 203, 102, 0.3);
+  transition: all 0.6s ease;
+  transform-style: preserve-3d;
+  animation: slideUp 1s ease-out;
+  transform: rotateX(5deg) rotateY(-5deg);
+  position: relative;
+  backdrop-filter: blur(16px); /* More blur for glass */
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: white;
+}
+
+/* Decorative corners */
+.AboutMPSEDC::before,
+.AboutMPSEDC::after {
+  content: '';
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, transparent 50%, #0a1c2e 50%);
+  bottom: -10px;
+  right: -10px;
+  z-index: -1;
+}
+.AboutMPSEDC::after {
+  background: linear-gradient(-45deg, transparent 50%, #0a1c2e 50%);
+  top: -10px;
+  left: -10px;
+  right: auto;
+  bottom: auto;
+}
+
+.AboutMPSEDC:hover {
+  transform: rotateX(8deg) rotateY(8deg) scale(1.04);
+  box-shadow:
+    0 35px 65px rgba(255, 235, 104, 0.4);
+}
+
+/* 🌟 HEADER STYLING */
+.AboutMPSEDC h1 {
+  font-size: 2.8rem;
+  margin-bottom: 20px;
+  text-align: center;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+
+  background: linear-gradient(90deg, #66fc93, #a3c7e6, #fbb969, #ffd200);
+  background-size: 800% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: #ffffff; /* fallback color */
+  -webkit-text-fill-color: transparent;
+
+  text-shadow:
+    1px 1px 2px rgba(0, 0, 0, 0.4),
+    2px 2px 6px rgba(0, 0, 0, 0.3);
+
+  animation: gradientShift 6s ease-in-out infinite;
+}
+
+/* 🌟 PARAGRAPH STYLING */
+.AboutMPSEDC p {
+  font-size: 1.15rem;
+  line-height: 1.8;
+  text-align: justify;
+  letter-spacing: 0.5px;
+
+  background: linear-gradient(270deg, #ffffff, #99ff99, #fdd835);
+  background-size: 600% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: #f0f0f0; /* fallback color */
+  -webkit-text-fill-color: transparent;
+
+  text-shadow:
+    1px 1px 1px rgba(0, 0, 0, 0.4),
+    0 0 4px rgba(0, 255, 255, 0.2);
+
+  animation: gradientShift 6s ease-in-out infinite;
+}
+
+
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@media (max-width: 600px) {
+  .AboutMPSEDC {
+    margin-top: 770px;
+    padding: 25px;
+  }
+
+  .AboutMPSEDC h1 {
+    font-size: 2.2rem;
+  }
+
+  .AboutMPSEDC p {
+    font-size: 1rem;
+  }
+}
+/* ==================== Mobile Phones (≤480px) ==================== */
+@media (max-width: 480px) {
+  .AboutMPSEDC {
+    margin: 50px auto; /* Centered with less space */
+    padding: 20px;
+    width: 95%;
+    max-width: 100%;
+    transform: none; /* Remove 3D tilt for better readability on small screens */
+    animation: slideUp 0.8s ease-out;
+    margin-top: 330px;
+  }
+
+  .AboutMPSEDC::before,
+  .AboutMPSEDC::after {
+    width: 30px;
+    height: 30px;
+  }
+
+  /* Heading adjustments */
+  .AboutMPSEDC h1 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+    text-shadow:
+      1px 1px 2px rgba(0, 0, 0, 0.3),
+      0 0 5px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Paragraph adjustments */
+  .AboutMPSEDC p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    letter-spacing: 0.3px;
+    text-align: left; /* Better for narrow screens */
+  }
+}
+
+
+
+/* ==================== Gallery Component ==================== */
+  .Slider {
+         /* background: #111; */
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         height: 98vh;
+         margin: 0;
+         font-family: Arial, sans-serif;
+         overflow: hidden;
+         margin-top: -340px;
+         margin-bottom: 280px;
+         flex-direction: column;
+    margin: 0 auto;
+    padding: 20px 0;
+    }
+
+    .Slider .slider-container {
+         position: relative;
+         width: 98%;
+         max-width: 98vw;
+         height: 500px;
+         max-height: 80vh;
+         perspective: 2000px;
+          width: 95vw;
+    height: auto;
+    aspect-ratio: 16/9; 
+    }
+
+    .Slider .slide {
+         width: 100%;
+         height: 100%;
+         position: absolute;
+         transform-style: preserve-3d;
+         transform-origin: left;
+         transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+         box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+         border-radius: 10px;
+         overflow: hidden;
+         backface-visibility: hidden;
+    }
+
+    .Slider .slide img {
+         width: 100%;
+         height: 100%;
+         object-fit: fill;
+    }
+
+    .Slider .slide.turn {
+         transform: rotateY(-180deg);
+    }
+
+   /* Controls */
+.Slider .controls {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    z-index: 10;
+}
+
+.Slider button {
+    background: #4eb8b4;
+    color: #fff;
+    border: none;
+    padding: 10px 18px;
+    cursor: pointer;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.25);
+      padding: 6px 12px;
+    font-size: 12px;
+}
+.Slider button:hover {
+    background: #3d8380;
+    transform: scale(1.07);
+    box-shadow: 0 6px 18px rgba(0, 123, 255, 0.35);
+}
+.Slider button:active {
+    transform: scale(0.95);
+}
+
+/* Media query for tablets and smaller desktops */
+/* ==================== Responsive Media Queries ==================== */
+
+/* Large Screens (default styles already handle this) */
+
+/* Medium Devices - Tablets & small laptops */
+@media (max-width: 1024px) {
+    .Slider {
+        margin-top: -200px;
+        margin-bottom: 200px;
+    }
+
+    .Slider .slider-container {
+        width: 80%;
+        height: 400px;
+    }
+
+    .Slider .controls {
+        bottom: -200px;
+    }
+}
+
+/* Small Devices - Tablets in portrait mode & large phones */
+@media (max-width: 768px) {
+    .Slider {
+        flex-direction: column;
+        margin-top: -150px;
+        margin-bottom: 150px;
+    }
+
+    .Slider .slider-container {
+        width: 90%;
+        height: 300px;
+    }
+
+    .Slider button {
+        padding: 8px 15px;
+        font-size: 13px;
+    }
+
+    .Slider .controls {
+        bottom: -150px;
+        gap: 12px;
+    }
+}
+
+/* Extra Small Devices - Mobile phones */
+@media (max-width: 480px) {
+    .Slider {
+        margin-top: -100px;
+        margin-bottom: 100px;
+    }
+
+    .Slider .slider-container {
+        width: 95vw;
+        height: 55vw; /* Keeps the aspect ratio */
+    }
+
+    .Slider .controls {
+        position: static;
+        margin-top: 15px;
+        gap: 8px;
+    }
+
+    .Slider button {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+}
+
+/* Ultra Small Devices - Very small phones */
+@media (max-width: 360px) {
+    .Slider .slider-container {
+        height: 50vw;
+    }
+
+    .Slider button {
+        padding: 5px 10px;
+        font-size: 11px;
+    }
+}
+/* ==================== Mobile-First Responsive Media Queries ==================== */
+
+/* Base Mobile Styles (default) */
+
+
+
+/* Small Devices - Larger phones & small tablets */
+@media (min-width: 481px) and (max-width: 767px) {
+    .Slider .slider-container {
+        width: 90vw;
+        aspect-ratio: 16/9;
+    }
+
+    .Slider button {
+        padding: 8px 14px;
+        font-size: 13px;
+    }
+
+    .Slider .controls {
+        margin-top: 15px;
+        gap: 10px;
+    }
+}
+
+/* Medium Devices - Tablets in portrait mode & small laptops */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .Slider {
+        margin-top: -100px;
+        margin-bottom: 120px;
+    }
+
+    .Slider .slider-container {
+        width: 80%;
+        height: 400px;
+    }
+
+    .Slider button {
+        padding: 10px 16px;
+        font-size: 14px;
+    }
+
+    .Slider .controls {
+        position: absolute;
+        bottom: -80px;
+    }
+}
+
+/* Large Devices - Desktop (keeps your original style) */
+@media (min-width: 1025px) {
+    .Slider {
+        margin-top: -340px;
+        margin-bottom: 280px;
+    }
+
+    .Slider .slider-container {
+        max-width: 98vw;
+        height: 500px;
+    }
+
+    .Slider .controls {
+        bottom: -850px;
+    }
+}
+
+
+        /* Base Styles */
+        :root {
+            --primary-bg: #0f172a;
+            --secondary-bg: #ffffff;
+            --accent-blue: #4e7a86;
+            --light-text: #f8fafc;
+            --dark-text: #64748b;
+            --card-glass: rgba(30, 41, 59, 0.5);
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
+        .combined-content {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      /* background: linear-gradient(135deg, #e0f2f1, #e3f2fd); */
+      padding: 30px 50px; /* Add overall padding */
+      margin-top: -300px;
+    }
+    .combined-content .row{
+      margin: 0 10px;
+    }
+
+    /* --- Projects & Verticals Section --- */
+        /* ==== TOP-LEVEL SECTION WRAPPER ==== */
+    :root {
+        --primary-blue2: #0A2F50;
+        --secondary-blue2: #1A4D7C;
+        --accent-green2: #4eb8b4;
+        --text-light2: #FFFFFF;
+        --text-dark2: #333;
+        --bg-light2: #f8f9fa;
+        --bg-card2: #ffffff;
+        --bg-card-back2: #1A4D7C;
+        --shadow2: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    /* body {
+        font-family: 'Poppins', sans-serif;
+        background-color: var(--bg-light);
+        margin: 0;
+        padding: 0;
+    } */
+
+    .projects-section-box {
+        padding: 40px 15px;
+        text-align: center;
+          background: var(--card-background);
+          
+  border: 1px solid var(--border-color2);
+  border-radius: 1.5rem;
+  backdrop-filter: blur(18px);
+  box-shadow: 0 10px 40px var(--box-shadow-dark2);
+    }
+
+    
+   .projects-section-box h2 {
+     text-align: center;
+      font-size: 26px; /* Smaller heading */
+      font-weight: 700;
+      background: linear-gradient(90deg, #5bb2ad, #ffffff, #9f8d55);;
+      background-size: 200% auto;
+      background-clip: text;
+      /* text-fill-color: transparent; */
+      /* -webkit-background-clip: text; */
+      -webkit-text-fill-color: transparent;
+      animation: gradientShift 4s linear infinite;
+      margin-top: 0;
+      margin-bottom: 20px; /* Reduced margin */
+      letter-spacing: 0.8px; /* Slightly tighter spacing */
+      text-transform: uppercase;
+}
+@keyframes gradientShift {
+      0% {
+        background-position: 0% center;
+      }
+      100% {
+        background-position: 200% center;
+      }
+    }
+
+    
+   .projects-section-box .row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+
+    /* Animation base state */
+    
+   .projects-section-box .card {
+        height: 250px;
+        perspective: 1000px;
+        border-radius: 12px;
+        box-shadow: var(--shadow2);
+        transition: transform 0.3s, box-shadow 0.3s;
+        cursor: pointer;
+        opacity: 0;
+        transform: translateY(40px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    /* Animation when visible */
+    
+   .projects-section-box .card.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    
+   .projects-section-box .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+    }
+
+    
+   .projects-section-box .card-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        transition: transform 0.6s;
+        transform-style: preserve-3d;
+    }
+
+  
+   .projects-section-box  .card:hover .card-inner {
+        transform: rotateY(180deg);
+    }
+
+    
+   .projects-section-box .card-front, .card-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        border-radius: 12px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        padding-bottom: 60px;
+        box-sizing: border-box;
+    }
+
+    
+   .projects-section-box .card-front {
+        background-color: var(--bg-card2);
+        overflow: hidden;
+    }
+
+    
+   .projects-section-box .card-back {
+        background-color: var(--bg-card-back2);
+        color: var(--text-light);
+        transform: rotateY(180deg);
+        padding: 15px;
+    }
+    
+    
+   .projects-section-box .card-back h5 {
+        font-size: 1.2rem;
+        margin-bottom: 5px;
+    }
+
+    
+   .projects-section-box .card-back p {
+        font-size: 0.8rem;
+        margin-bottom: 12px;
+        line-height: 1.3;
+    }
+
+    
+   .projects-section-box .card-img-top {
+        width: 100%;
+        height: 100%;
+        object-fit:fill;
+        border-radius: 12px;
+    }
+
+    
+   .projects-section-box .icon-circle {
+        position: absolute;
+        top: 70%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 50px;
+        height: 50px;
+        background-color: var(--accent-green2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-light2);
+        font-size: 1.5rem;
+        border: 3px solid var(--text-light2);
+        z-index: 2;
+        transition: all 0.3s ease;
+    }
+    
+    
+   .projects-section-box .card:hover .icon-circle {
+        top: 10px;
+        transform: translate(-50%, 0);
+        width: 45px;
+        height: 45px;
+        font-size: 1.2rem;
+    }
+
+    
+   .projects-section-box .card-body {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 6px;
+        text-align: center;
+        background: rgba(255, 255, 255, 0.9);
+        border-bottom-left-radius: 12px;
+        border-bottom-right-radius: 12px;
+        z-index: 1;
+    }
+
+    
+   .projects-section-box .card-title {
+        color: var(--primary-blue2);
+        font-weight: 600;
+        font-size: 0.95rem;
+        margin: 2px;
+    }
+
+    
+   .projects-section-box .know-more {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 6px 14px;
+        background-color: var(--accent-green2);
+        color: var(--text-light2);
+        text-decoration: none;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 0.85rem;
+        transition: background-color 0.3s ease;
+        box-shadow: 0 3px 5px rgba(0,0,0,0.2);
+    }
+
+    
+   .projects-section-box .know-more:hover {
+        background-color: #499f99;
+    }
+
+    @media (max-width: 768px) {
+        
+   .projects-section-box .row {
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+        }
+        
+   .projects-section-box .card {
+            height: 180px;
+        }
+    }
+
+
+
+/* ==== GRID COLUMNS ==== */
+.col-lg-9 {
+  flex: 0 0 auto;
+  width: 70%;
+}
+
+.col-lg-3 {
+  flex: 0 0 auto;
+  width: 30%;
+}
+/* ==================== Mobile Phones (≤480px) ==================== */
+@media (max-width: 480px) {
+  .combined-content {
+    padding: 15px 12px;
+    margin-top: -100px; /* Less negative margin so content isn't cut off */
+  }
+
+
+  .projects-section-box h2 {
+    font-size: 1.2rem;
+    letter-spacing: 0.5px;
+    margin-bottom: 15px;
+  }
+
+  /* Grid adapts to 1 column for better tap targets */
+  .projects-section-box .row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  /* Column widths reset for stacked layout */
+  .col-lg-9,
+  .col-lg-3 {
+    width: 100%;
+  }
+}
+
+/* ==== LATEST UPDATES SECTION ==== */
+:root {
+  --background-color: #1a1a2e;
+  --card-background: rgba(28, 35, 54, 0.57);
+  --border-color: #3b4257;
+  --accent-blue: #5cacaf;
+  /* #78a6ba */
+  --accent-purple: #E0E0E0;
+  --light-text: #e2e8f0;
+  --dark-text: #94a3b8;
+  --box-shadow-light: rgba(56, 189, 248, 0.15);
+  --box-shadow-dark: rgba(0, 0, 0, 0.5);
+}
+
+.latest-updates-box {
+  width: 100%;
+  max-width: 500px;
+  background: var(--card-background);
+  border: 1px solid var(--border-color);
+  border-radius: 1.5rem;
+  backdrop-filter: blur(18px);
+  box-shadow: 0 10px 40px var(--box-shadow-dark);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  max-height: 90vh; /* Use vh for responsive height */
+}
+
+.latest-updates-box h2 {
+      text-align: center;
+      font-size: 26px; /* Smaller heading */
+      font-weight: 700;
+      background: linear-gradient(90deg, #5bb2ad, #ffffff, #9f8d55);;
+      background-size: 200% auto;
+      background-clip: text;
+      /* text-fill-color: transparent; */
+      /* -webkit-background-clip: text; */
+      -webkit-text-fill-color: transparent;
+      animation: gradientShift 4s linear infinite;
+      margin-top: 0;
+      margin-bottom: 20px; /* Reduced margin */
+      letter-spacing: 0.8px; /* Slightly tighter spacing */
+      text-transform: uppercase;
+}
+@keyframes gradientShift {
+      0% {
+        background-position: 0% center;
+      }
+      100% {
+        background-position: 200% center;
+      }
+    }
+
+.updates-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  overflow-y: auto;
+  padding-right: 12px; /* Increased padding for better scrollbar spacing */
+}
+
+/* Modern Scrollbar for all browsers */
+.updates-container {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-blue) transparent;
+}
+
+.updates-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.updates-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.updates-container::-webkit-scrollbar-thumb {
+  background-color: var(--accent-blue);
+  border-radius: 4px;
+  border: 2px solid var(--card-background); /* Add a border to the thumb for a better look */
+}
+
+.update-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem; /* Increased gap for better spacing */
+  padding: 1rem;
+  border-radius: 1rem;
+  border: 1px solid var(--border-color);
+  border-left: 5px solid var(--accent-blue);
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  background: rgba(28, 35, 54, 0.3); /* Slightly darker background for initial state */
+}
+
+.update-item:hover {
+  transform: translateY(-5px); /* Changed to translateY for a different hover effect */
+  box-shadow: 0 8px 30px var(--box-shadow-light);
+  background: rgba(37, 51, 70, 0.8); /* A more opaque background on hover */
+}
+
+.update-item .date {
+  text-align: center;
+  min-width: 70px;
+  flex-shrink: 0; /* Prevents the date from shrinking on smaller screens */
+}
+
+.update-item .day {
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--accent-blue);
+}
+
+.update-item .month {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  color: var(--dark-text);
+  margin-top: 5px;
+  letter-spacing: 0.5px;
+}
+
+.update-item .text {
+  flex-grow: 1;
+  font-size: clamp(0.9rem, 2vw, 0.95rem);
+  color: var(--light-text);
+  line-height: 1.6; /* Improved line height for readability */
+}
+
+.update-item .text a {
+  color: var(--accent-blue);
+  text-decoration: none;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  margin-top: 10px;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.update-item .text a:hover {
+  color: var(--accent-purple); /* Changed hover color for variety */
+  transform: translateX(3px); /* Small animation on link hover */
+}
+
+.update-item .text i {
+  margin-right: 8px;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .latest-updates-box {
+    padding: 1.5rem;
+  }
+
+  .update-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .update-item .date {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    min-width: auto;
+    width: 100%; /* Full width for the date container */
+  }
+
+  .update-item .day {
+    font-size: 2rem;
+  }
+
+  .update-item .month {
+    font-size: 0.8rem;
+    margin-top: 0;
+  }
+
+  .update-item .text {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+}
+/* ==================== Mobile Phones (≤480px) ==================== */
+@media (max-width: 480px) {
+  .latest-updates-box {
+    max-width: 100%;
+    padding: 1rem;
+    border-radius: 1rem;
+    max-height: 50vh; /* Slightly smaller so header/footer fit */
+    margin-top: 30px;
+  }
+
+  .latest-updates-box h2 {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    letter-spacing: 0.5px;
+  }
+
+  .updates-container {
+    gap: 1rem;
+    padding-right: 6px; /* Narrower for mobile */
+  }
+
+  .update-item {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.8rem;
+    gap: 0.8rem;
+  }
+
+  .update-item .date {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    min-width: auto;
+    justify-content: flex-start;
+  }
+
+  .update-item .day {
+    font-size: 1.8rem;
+  }
+
+  .update-item .month {
+    font-size: 0.75rem;
+    letter-spacing: 0.4px;
+  }
+
+  .update-item .text {
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+
+  .update-item .text a {
+    font-size: 0.8rem;
+    margin-top: 8px;
+  }
+}
+        /* --- Partners Section --- */
+        .partners-section {
+            background: linear-gradient(to bottom, var(--primary-bg), var(--secondary-bg));
+            padding: 0rem 0;
+            margin-top: 1rem;
+            border-top: 2px solid var(--accent-blue);
+            box-shadow: inset 0 5px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .partners-section h2 {
+            text-align: center;
+            color: var(--accent-blue);
+            margin-bottom: 2rem;
+            font-size: 2.2rem;
+        }
+
+        .partners-section .logo-carousel {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .partners-section .carousel-track {
+            display: flex;
+            animation: scroll-v2 25s linear infinite;
+            width: fit-content;
+            padding: 1rem 0;
+        }
+
+        .partners-section .logo-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            margin: 0 15px;
+            border-radius: 15px;
+            background: var(--secondary-bg);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+            transition: all 0.4s ease;
+            min-width: 200px;
+            text-decoration: none;
+            border: 1px solid var(--border-color);
+        }
+
+        .partners-section .logo-item:hover {
+            transform: translateY(-8px) scale(1.05);
+            background: #c0c0c0;
+            box-shadow: 0 8px 30px rgba(56, 189, 248, 0.2);
+            border-color: #2c7c8a;
+        }
+
+        .partners-section .logo-item img {
+            max-width: 100%;
+            max-height: 60px;
+            object-fit: contain;
+            filter: grayscale(20%);
+            transition: filter 0.4s ease;
+        }
+
+        .partners-section .logo-item:hover img {
+            filter: grayscale(0%);
+        }
+
+        .partners-section .logo-item p {
+            margin-top: 12px;
+            font-size: 15px;
+            color: var(--dark-text);
+            text-align: center;
+            font-weight: 500;
+            transition: color 0.4s ease;
+        }
+
+        .partners-section .logo-item:hover p {
+            color: var(--light-text);
+        }
+
+        @keyframes scroll-v2 {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .partners-section .logo-carousel:hover .carousel-track {
+            animation-play-state: paused;
+        }
+        /* Mobile & Tablet Responsive Styles */
+@media (max-width: 1024px) {
+    .partners-section h2 {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .partners-section .logo-item {
+        min-width: 160px;
+        padding: 15px;
+        margin: 0 10px;
+    }
+
+    .partners-section .logo-item img {
+        max-height: 50px;
+    }
+}
+
+@media (max-width: 768px) {
+    .partners-section {
+        padding: 1rem 0;
+    }
+
+    .partners-section h2 {
+        font-size: 1.6rem;
+    }
+
+    .partners-section .carousel-track {
+        animation: scroll-v2 20s linear infinite; /* Slightly faster for mobile */
+    }
+
+    .partners-section .logo-item {
+        min-width: 140px;
+        padding: 12px;
+        margin: 0 8px;
+    }
+
+    .partners-section .logo-item img {
+        max-height: 45px;
+    }
+
+    .partners-section .logo-item p {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .partners-section {
+        padding: 0.8rem 0;
+    }
+
+    .partners-section h2 {
+        font-size: 1.4rem;
+        margin-bottom: 1rem;
+    }
+
+    .partners-section .logo-item {
+        min-width: 120px;
+        padding: 10px;
+        margin: 0 6px;
+    }
+
+    .partners-section .logo-item img {
+        max-height: 40px;
+    }
+
+    .partners-section .logo-item p {
+        font-size: 12px;
+    }
+}
+
+        /* --- Footer --- */
+        .foot {
+            margin-top: auto;
+        }
+
+        .footer {
+            background: var(--secondary-bg);
+            color: var(--light-text);
+            padding: 25px 0px 0px;
+            border-radius: 0px;
+            box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer h5 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--accent-blue);
+        }
+
+        .footer ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .footer ul li {
+            margin-bottom: 2px;
+            font-size: 0.9rem;
+            color: var(--dark-text);
+            transition: color 0.3s ease;
+        }
+
+        .footer ul li i {
+            color: var(--accent-blue);
+            margin-right: 10px;
+            width: 18px;
+            text-align: center;
+        }
+
+        .footer ul li:hover {
+            color: var(--light-text);
+        }
+
+        .footer ul li a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer ul li a:hover {
+            color: var(--accent-blue);
+        }
+
+        .footer-bottom {
+            background: #c0c0c0;
+            color: #000000;
+            font-size: 0.8rem;
+            padding: 2px;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            line-height: 1.8;
+        }
+
+        .footer-bottom strong {
+            color: var(--accent-blue);
+        }
+
+        .footer-bottom a {
+            color:#000000;
+            margin: 0 15px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-bottom a:hover {
+            color: var(--accent-blue);
+        }
+        /* ===== Mobile Optimization (Phones) ===== */
+/* ===== Mobile Optimization (Phones) ===== */
+@media (max-width: 576px) {
+    /* Footer Container */
+    .footer {
+        padding: 12px 8px 0px; /* less padding */
+        text-align: center;
+    }
+
+    /* Footer Headings */
+    .footer h5 {
+        font-size: 0.9rem; /* smaller text */
+        margin-bottom: 8px; /* less gap */
+    }
+
+    /* Footer Lists */
+    .footer ul {
+        padding-left: 0;
+        margin-bottom: 8px; /* compact list spacing */
+    }
+    .footer ul li {
+        font-size: 0.78rem; /* smaller font */
+        margin-bottom: 4px; /* less gap between items */
+        line-height: 1.3; /* tighter lines */
+    }
+    .footer ul li i {
+        display: none; /* hide icons to save width */
+    }
+
+    /* Footer Bottom */
+    .footer-bottom {
+        font-size: 0.72rem;
+        padding: 4px 5px;
+        line-height: 1.3;
+    }
+    .footer-bottom a {
+        margin: 0 5px;
+        display: inline-block;
+    }
+}
+    </style>
+</head>
+<body>
+      <div class="header-container">
+        <header class="site-header">
+            <div class="top-bar">
+                <div class="top-bar-section font-size-controls">
+                    <button id="decrease">A–</button>
+                    <button id="default">A</button>
+                    <button id="increase">A+</button>
+                </div>
+                <div class="top-bar-section">
+                    <a href="#"><i class="fas fa-universal-access"></i> Screen Reader</a>
+                    <a href="#main-content">Skip to Main Content</a>
+                    <a href="#navigation">Skip to Navigation</a>
+                </div>
+                <div class="top-bar-section">
+                    <a href="#">IT Policy‑2023</a>
+                    <a href="#">Security Audit Login</a>
+                    <a href="#">CMS Login</a>
+                    <a href="#">EOI Form</a>
+                </div>
+                <div class="top-bar-section search-lang-controls">
+                    <input type="text" placeholder="Search…" />
+                    <button>हिंदी</button>
+                </div>
+            </div>
+
+            <div class="logo-branding">
+                <img src="https://mpsedc.mp.gov.in/Uploaded%20Document/header/28072020125926mpsedclogo.png" alt="MPSEDC Logo" />
+                <div class="main-title">
+                    <h1>M.P. STATE ELECTRONICS DEVELOPMENT CORPORATION LTD.</h1>
+                    <div class="tagline">A Government of MP Undertaking</div>
+                </div>
+                <img src="https://raw.githubusercontent.com/Amanpatel83/MPSEDCWebsite/main/mplogo.png" alt="Govt Logo" />
+                <div class="hamburger-menu" onclick="openMobileNav()">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+
+            <nav id="navigation" class="main-nav">
+                <ul id="navList">
+                    <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+                    <li class="has-submenu">
+                        <a href="/LAST/page.html"><i class="fas fa-building"></i> About Us <i class="fas fa-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="http://127.0.0.1:5500/LAST/page.html#"><i class="fas fa-dot-circle"></i> Objective</a></li>
+                            <li><a href="#"><i class="fas fa-bullseye"></i> Mission</a></li>
+                            <li><a href="#"><i class="fas fa-eye"></i> Vision</a></li>
+                            <li><a href="#"><i class="fas fa-sitemap"></i> Organization</a></li>
+                            <li><a href="#"><i class="fas fa-users-cog"></i> Board of Directors</a></li>
+                            <li><a href="#"><i class="fas fa-network-wired"></i> Subsidiaries</a></li>
+                            <li><a href="#"><i class="fas fa-user-tie"></i> Key Managerial Personnel</a></li>
+                            <li><a href="#"><i class="fas fa-id-card-alt"></i> MPSEDC Registration Details</a></li>
+                            <li><a href="#"><i class="fas fa-briefcase"></i> Vacancy</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-submenu">
+                        <a href="#"><i class="fas fa-scroll"></i> Policies & Rules <i class="fas fa-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#"><i class="fas fa-book-open"></i> IT Policy</a></li>
+                            <li><a href="#"><i class="fas fa-file-invoice-dollar"></i> Procurement Rules</a></li>
+                            <li><a href="#"><i class="fas fa-balance-scale"></i> Service Rules</a></li>
+                            <li><a href="#"><i class="fas fa-user-shield"></i> Security Guidelines</a></li>
+                            <li><a href="#"><i class="fas fa-users"></i> HR Policies</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#"><i class="fas fa-clipboard-list"></i> Circulars & Orders</a></li>
+                    <li><a href="#"><i class="fas fa-hand-holding-heart"></i> CSR</a></li>
+                    <li><a href="#"><i class="fas fa-chart-line"></i> Investment Portal</a></li>
+                    <li><a href="#"><i class="fas fa-gavel"></i> Tenders</a></li>
+                    <li><a href="#"><i class="fas fa-question-circle"></i> RTI</a></li>
+                    <li><a href="#"><i class="fas fa-newspaper"></i> Media</a></li>
+                    <li><a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="#"><i class="fas fa-phone-alt"></i> Contact Us</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+        <div class="mobile-nav-sidebar" id="mobileNavSidebar">
+            <div class="close-btn" id="closeMobileNav" onclick="closeMobileNav()">
+                <i class="fas fa-times"></i>
+            </div>
+            <ul class="mobile-main-menu">
+                <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+                <li class="has-submenu" id="mobileAboutUs">
+                    <a href="#"><i class="fas fa-building"></i> About Us <i class="fas fa-caret-down"></i></a>
+                    <div class="mega-menu">
+                        <div class="mega-menu-column">
+                            <h4>Our Vision</h4>
+                            <ul>
+                                <li><a href="#"><i class="fas fa-bullseye"></i> Mission & Values</a></li>
+                                <li><a href="#"><i class="fas fa-chart-pie"></i> Strategic Goals</a></li>
+                                <li><a href="#"><i class="fas fa-lightbulb"></i> Future Plans</a></li>
+                            </ul>
+                        </div>
+                        <div class="mega-menu-column">
+                            <h4>Leadership</h4>
+                            <ul>
+                                <li><a href="#"><i class="fas fa-users-cog"></i> Board of Directors</a></li>
+                                <li><a href="#"><i class="fas fa-user-tie"></i> Management Team</a></li>
+                                <li><a href="#"><i class="fas fa-sitemap"></i> Organizational Chart</a></li>
+                                <li><a href="#"><i class="fas fa-id-card-alt"></i> Key Personnel</a></li>
+                            </ul>
+                        </div>
+                        <div class="mega-menu-column">
+                            <h4>Our History</h4>
+                            <ul>
+                                <li><a href="#"><i class="fas fa-history"></i> Milestones</a></li>
+                                <li><a href="#"><i class="fas fa-shield-alt"></i> Founding Principles</a></li>
+                                <li><a href="#"><i class="fas fa-trophy"></i> Achievements</a></li>
+                                <li><a href="#"><i class="fas fa-sync-alt"></i> Evolution</a></li>
+                            </ul>
+                        </div>
+                        <div class="mega-menu-column">
+                            <h4>Partnerships</h4>
+                            <ul>
+                                <li><a href="#"><i class="fas fa-handshake"></i> Collaborations</a></li>
+                                <li><a href="#"><i class="fas fa-industry"></i> Industry Alliances</a></li>
+                                <li><a href="#"><i class="fas fa-gavel"></i> Government Initiatives</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li class="has-submenu" id="mobilePoliciesRules">
+                    <a href="#"><i class="fas fa-scroll"></i> Policies & Rules <i class="fas fa-caret-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#"><i class="fas fa-book-open"></i> IT Policy</a></li>
+                        <li><a href="#"><i class="fas fa-file-invoice-dollar"></i> Procurement Rules</a></li>
+                        <li><a href="#"><i class="fas fa-balance-scale"></i> Service Rules</a></li>
+                        <li><a href="#"><i class="fas fa-user-shield"></i> Security Guidelines</a></li>
+                        <li><a href="#"><i class="fas fa-users"></i> HR Policies</a></li>
+                    </ul>
+                </li>
+                <li><a href="#"><i class="fas fa-clipboard-list"></i> Circulars & Orders</a></li>
+                <li><a href="#"><i class="fas fa-hand-holding-heart"></i> CSR</a></li>
+                <li><a href="#"><i class="fas fa-chart-line"></i> Investment Portal</a></li>
+                <li><a href="#"><i class="fas fa-gavel"></i> Tenders</a></li>
+                <li><a href="#"><i class="fas fa-question-circle"></i> RTI</a></li>
+                <li><a href="#"><i class="fas fa-newspaper"></i> Media</a></li>
+                <li><a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="#"><i class="fas fa-phone-alt"></i> Contact Us</a></li>
+            </ul>
+        </div>
+        </div>
+
+    <script>
+        function openMobileNav() {
+            document.getElementById('mobileNavSidebar').classList.add('active');
+            document.getElementById('mobileNavOverlay').style.display = 'block';
+        }
+
+        function closeMobileNav() {
+            document.getElementById('mobileNavSidebar').classList.remove('active');
+            document.getElementById('mobileNavOverlay').style.display = 'none';
+        }
+
+        // Toggle sub-menus and mega-menu in mobile sidebar
+        document.querySelectorAll('.mobile-main-menu .has-submenu > a').forEach(item => {
+            item.addEventListener('click', function(event) {
+                event.preventDefault();
+                const parentLi = this.closest('li.has-submenu');
+                const dropdown = parentLi.querySelector('.dropdown-menu') || parentLi.querySelector('.mega-menu');
+
+                // Close other open submenus/mega-menus
+                document.querySelectorAll('.mobile-main-menu .has-submenu.open').forEach(openLi => {
+                    if (openLi !== parentLi) {
+                        openLi.classList.remove('open');
+                        const openDropdown = openLi.querySelector('.dropdown-menu') || openLi.querySelector('.mega-menu');
+                        if (openDropdown) {
+                            openDropdown.style.display = 'none';
+                        }
+                    }
+                });
+
+                parentLi.classList.toggle('open');
+                if (dropdown) {
+                    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+                }
+            });
+        });
+
+
+        // Font size accessibility (retained from your original code)
+        document.getElementById('increase').addEventListener('click', function() {
+            adjustFontSize(2);
+        });
+
+        document.getElementById('decrease').addEventListener('click', function() {
+            adjustFontSize(-2);
+        });
+
+        document.getElementById('default').addEventListener('click', function() {
+            document.body.style.fontSize = ''; // Reset to default
+        });
+
+        function adjustFontSize(change) {
+            let currentSize = parseFloat(getComputedStyle(document.body).fontSize);
+            document.body.style.fontSize = (currentSize + change) + 'px';
+        }
+
+        // Close mobile nav when clicking outside (on overlay)
+        document.getElementById('mobileNavOverlay').addEventListener('click', closeMobileNav);
+    </script>
+      <div class="AboutMPSEDC">
+    <h1>About MPSEDC</h1>
+    <p>
+      M.P. State Electronics Development Corporation Ltd. (MPSEDC) is a nodal agency under the Department of Science & Technology, Government of Madhya Pradesh, responsible for driving the state's IT, electronics, and e-governance initiatives. MPSEDC facilitates milestone-based project implementation and addresses regulatory and operational challenges in state-level IT and infrastructure projects, with a focus on enhancing digital governance and enabling investments in the technology sector.
+    </p>
+  </div>
+<div class="Slider">
+<div class="slider-container" id="slider"></div>
+
+<div class="controls">
+    <button onclick="prevSlide()">⟨ Prev</button>
+    <button id="toggle-play-pause">❚❚ Pause</button>
+    <button onclick="nextSlide()">Next ⟩</button>
+</div>
+</div>
+
+<script>
+
+
+const imagesData = [
+    { src: "https://raw.githubusercontent.com/Amanpatel83/MPSEDCWebsite/main/02072025113455Ujjain%20mahakumb.jpg", alt: "Ujjain New Hackathon" },
+    { src: "https://raw.githubusercontent.com/Amanpatel83/MPSEDCWebsite/main/21082020025434IT%20Park%20Bhopal%201.jpg", alt: "IT Park Bhopal" },
+    { src: "https://raw.githubusercontent.com/Amanpatel83/MPSEDCWebsite/main/21082020025632IT%20Park%20Indore%201.jpg", alt: "IT Park Indore" },
+    { src: "https://raw.githubusercontent.com/Amanpatel83/MPSEDCWebsite/main/22022025061215Gwalior%20Malanpur%20Banner.jpg", alt: "Gwalior Malanpur" },
+    { src: "https://raw.githubusercontent.com/Amanpatel83/MPSEDCWebsite/main/22022025061244Indore%20Sinhasa%20Banner.jpg", alt: "Indore Sinhasa" },
+    { src: "https://raw.githubusercontent.com/Amanpatel83/MPSEDCWebsite/main/010920200543162.jpg", alt: "Abstract Waves" }
+];
+
+let current = 0;
+let autoSlideInterval;
+const slider = document.getElementById("slider");
+const slides = [];
+
+// Create slides
+imagesData.forEach((img, index) => {
+    const slide = document.createElement("div");
+    slide.className = "slide";
+    slide.innerHTML = `<img src="${img.src}" alt="${img.alt}">`;
+    slide.style.zIndex = imagesData.length - index;
+    slider.appendChild(slide);
+    slides.push(slide);
+});
+
+function showSlide() {
+    slides.forEach((slide, i) => {
+        slide.classList.toggle("turn", i < current);
+    });
+}
+
+function nextSlide() {
+    current++;
+    if (current+1 > imagesData.length) {
+        // Reset the counter to 0 to show the first page
+        current = 0;
+        // Turn off all slides to show the initial state (the first page)
+        showSlide();
+
+        // After a delay, start the turning process again.
+        // This delay should match the transition time to be seamless.
+        setTimeout(() => {
+            current = 1;
+            showSlide();
+        }, 1200); // Changed to match the CSS transition time
+    } else {
+        showSlide();
+    }
+}
+
+
+function prevSlide() {
+    current--;
+    if (current+1 < 0) {
+        // Reset the counter to show the last page
+        current = imagesData.length;
+        // Show the stack with all but the last page turned
+        showSlide();
+    } else {
+        showSlide();
+    }
+}
+
+function startAutoSlide() {
+    autoSlideInterval = setInterval(nextSlide, 3000);
+}
+
+function stopAutoSlide() {
+    clearInterval(autoSlideInterval);
+}
+
+const toggleButton = document.getElementById("toggle-play-pause");
+let isPlaying = true;
+toggleButton.addEventListener("click", () => {
+    if (isPlaying) {
+        stopAutoSlide();
+        toggleButton.textContent = "▶ Play";
+    } else {
+        startAutoSlide();
+        toggleButton.textContent = "❚❚ Pause";
+    }
+    isPlaying = !isPlaying;
+});
+
+// Touch swipe
+let startX = 0;
+slider.addEventListener("touchstart", e => startX = e.touches[0].clientX);
+slider.addEventListener("touchend", e => {
+    let diff = e.changedTouches[0].clientX - startX;
+    // Temporarily stop auto-slide on user interaction
+    stopAutoSlide();
+    if (diff > 50) prevSlide();
+    else if (diff < -50) nextSlide();
+
+    // Restart auto-slide after a short delay
+    if (isPlaying) {
+        setTimeout(startAutoSlide, 3000);
+    }
+});
+
+// Init
+showSlide();
+startAutoSlide();
+</script>
+  
+
+    <div class="container-fluid combined-content">
+        <div class="row">
+            <div class="col-lg-9 projects-col">
+               <section class="projects-section-box">
+        <h2> ⚙️ Projects & Verticals</h2>
+        <div class="row">
+
+            <div class="col">
+                <div class="card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="https://raw.githubusercontent.com/Amanpatel83/MPSEDCWebsite/main/header.jpg" class="card-img-top" alt="Adjudication Officer Banner">
+                            <div class="icon-circle"><i class="fas fa-gavel"></i></div>
+                            <div class="card-body">
+                                <h5 class="card-title">Adjudication Officer - IT Act</h5>
+                            </div>
+                        </div>
+                        <div class="card-back">
+                            <h5>Adjudication Officer - IT Act</h5>
+                            <p>This department handles legislative and regulatory matters related to the Information Technology Act.</p>
+                            <a href="#" class="know-more" aria-label="Know more about Adjudication Officer">Know More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="https://raw.githubusercontent.com/Amanpatel83/MPSEDCWebsite/main/coe-center-of-excellence-business-concept-vector-44332485.jpg" class="card-img-top" alt="Centre of Excellence Banner">
+                            <div class="icon-circle"><i class="fas fa-graduation-cap"></i></div>
+                            <div class="card-body">
+                                <h5 class="card-title">Centre of Excellence</h5>
+                            </div>
+                        </div>
+                        <div class="card-back">
+                            <h5>Centre of Excellence</h5>
+                            <p>These Centres of Excellence are at the forefront of promoting the latest technological skills and innovation yet.</p>
+                            <a href="#" class="know-more" aria-label="Know more about Centre of Excellence">Know More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="https://raw.githubusercontent.com/Amanpatel83/MPSEDCWebsite/main/download (1).jpg" class="card-img-top" alt="GIS Project">
+                            <div class="icon-circle"><i class="fas fa-map-marked-alt"></i></div>
+                            <div class="card-body">
+                                <h5 class="card-title">MPSSDI / GIS</h5>
+                            </div>
+                        </div>
+                        <div class="card-back">
+                            <h5>MPSSDI / GIS</h5>
+                            <p>Details about the MPSSDI / GIS project. Click below to know more.</p>
+                            <a href="#" class="know-more">Know More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="https://raw.githubusercontent.com/Amanpatel83/MPSEDCWebsite/main/images.jpg" class="card-img-top" alt="Investment Promotion">
+                            <div class="icon-circle"><i class="fas fa-chart-line"></i></div>
+                            <div class="card-body">
+                                <h5 class="card-title">IT Investment Promotion</h5>
+                            </div>
+                        </div>
+                        <div class="card-back">
+                            <h5>IT Investment Promotion</h5>
+                            <p>Details about the IT Investment Promotion project. Click below to know more.</p>
+                            <a href="#" class="know-more">Know More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="https://raw.githubusercontent.com/Amanpatel83/MPSEDCWebsite/main/download3.png" class="card-img-top" alt="EMC Project">
+                            <div class="icon-circle"><i class="fas fa-database"></i></div>
+                            <div class="card-body">
+                                <h5 class="card-title">EMC</h5>
+                            </div>
+                        </div>
+                        <div class="card-back">
+                            <h5>EMC</h5>
+                            <p>Details about the EMC project. Click below to know more.</p>
+                            <a href="#" class="know-more">Know More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="https://raw.githubusercontent.com/Amanpatel83/MPSEDCWebsite/main/images (1).jpg" class="card-img-top" alt="MP e-Tenders">
+                            <div class="icon-circle"><i class="fas fa-file-signature"></i></div>
+                            <div class="card-body">
+                                <h5 class="card-title">MP e-Tenders</h5>
+                            </div>
+                        </div>
+                        <div class="card-back">
+                            <h5>MP e-Tenders</h5>
+                            <p>Details about the MP e-Tenders project. Click below to know more.</p>
+                            <a href="#" class="know-more">Know More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="https://raw.githubusercontent.com/Amanpatel83/MPSEDCWebsite/main/download (2).jpg" class="card-img-top" alt="State Data Center">
+                            <div class="icon-circle"><i class="fas fa-server"></i></div>
+                            <div class="card-body">
+                                <h5 class="card-title">State Data Center</h5>
+                            </div>
+                        </div>
+                        <div class="card-back">
+                            <h5>State Data Center</h5>
+                            <p>Details about the State Data Center project. Click below to know more.</p>
+                            <a href="#" class="know-more">Know More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="https://raw.githubusercontent.com/Amanpatel83/MPSEDCWebsite/main/download (3).jpg" class="card-img-top" alt="SWAN Project">
+                            <div class="icon-circle"><i class="fas fa-network-wired"></i></div>
+                            <div class="card-body">
+                                <h5 class="card-title">SWAN</h5>
+                            </div>
+                        </div>
+                        <div class="card-back">
+                            <h5>SWAN</h5>
+                            <p>Details about the SWAN project. Click below to know more.</p>
+                            <a href="#" class="know-more">Know More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="https://raw.githubusercontent.com/Amanpatel83/MPSEDCWebsite/main/MPSEDC-Recruitment.png" class="card-img-top" alt="Parichai Identity">
+                            <div class="icon-circle"><i class="fas fa-id-card"></i></div>
+                            <div class="card-body">
+                                <h5 class="card-title">Parichai</h5>
+                            </div>
+                        </div>
+                        <div class="card-back">
+                            <h5>Parichai</h5>
+                            <p>Details about the Parichai project. Click below to know more.</p>
+                            <a href="#" class="know-more">Know More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="https://raw.githubusercontent.com/Amanpatel83/MPSEDCWebsite/main/Aadhaar_Preview.png" class="card-img-top" alt="Aadhaar Services">
+                            <div class="icon-circle"><i class="fas fa-fingerprint"></i></div>
+                            <div class="card-body">
+                                <h5 class="card-title">Aadhaar</h5>
+                            </div>
+                        </div>
+                        <div class="card-back">
+                            <h5>Aadhaar</h5>
+                            <p>Details about the Aadhaar project. Click below to know more.</p>
+                            <a href="#" class="know-more">Know More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="https://raw.githubusercontent.com/Amanpatel83/MPSEDCWebsite/main/images (3).jpg" class="card-img-top" alt="Election Tech">
+                            <div class="icon-circle"><i class="fas fa-vote-yea"></i></div>
+                            <div class="card-body">
+                                <h5 class="card-title">Election</h5>
+                            </div>
+                        </div>
+                        <div class="card-back">
+                            <h5>Election</h5>
+                            <p>Details about the Election project. Click below to know more.</p>
+                            <a href="#" class="know-more">Know More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="https://raw.githubusercontent.com/Amanpatel83/MPSEDCWebsite/main/download.png" class="card-img-top" alt="Citizen Database">
+                            <div class="icon-circle"><i class="fas fa-folder-open"></i></div>
+                            <div class="card-body">
+                                <h5 class="card-title">Single Citizen Database</h5>
+                            </div>
+                        </div>
+                        <div class="card-back">
+                            <h5>Single Citizen Database</h5>
+                            <p>Details about the Single Citizen Database project. Click below to know more.</p>
+                            <a href="#" class="know-more">Know More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="https://raw.githubusercontent.com/Amanpatel83/MPSEDCWebsite/main/security.jpg" class="card-img-top" alt="Security Audit Portal">
+                            <div class="icon-circle"><i class="fas fa-shield-alt"></i></div>
+                            <div class="card-body">
+                                <h5 class="card-title">Security Audit Portal</h5>
+                            </div>
+                        </div>
+                        <div class="card-back">
+                            <h5>Security Audit Portal</h5>
+                            <p>Details about the Security Audit Portal project. Click below to know more.</p>
+                            <a href="#" class="know-more">Know More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="https://raw.githubusercontent.com/Amanpatel83/MPSEDCWebsite/main/mail.jpg" class="card-img-top" alt="EMAIL PMU">
+                            <div class="icon-circle"><i class="fas fa-envelope"></i></div>
+                            <div class="card-body">
+                                <h5 class="card-title">EMAIL PMU</h5>
+                            </div>
+                        </div>
+                        <div class="card-back">
+                            <h5>EMAIL PMU</h5>
+                            <p>Details about the EMAIL PMU project. Click below to know more.</p>
+                            <a href="#" class="know-more">Know More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="https://raw.githubusercontent.com/Amanpatel83/MPSEDCWebsite/main/dataAn.png" class="card-img-top" alt="Data Analytics">
+                            <div class="icon-circle"><i class="fas fa-chart-bar"></i></div>
+                            <div class="card-body">
+                                <h5 class="card-title">Data Analytics</h5>
+                            </div>
+                        </div>
+                        <div class="card-back">
+                            <h5>Data Analytics</h5>
+                            <p>Details about the Data Analytics project. Click below to know more.</p>
+                            <a href="#" class="know-more">Know More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+            </div>
+
+            <div class="col-lg-3 latest-updates-col">
+                <section id="latest-updates">
+                    <div class="latest-updates-box">
+                        <h2>📢 Latest Updates</h2>
+                        <div class="updates-container">
+                            <div class="update-item">
+                                <div class="date">
+                                    <div class="day">26</div>
+                                    <div class="month">JUN 2025</div>
+                                </div>
+                                <div class="text">
+                                    Register for Simhastha Tech Hackathon
+                                    <br>
+                                    <a href="sample.pdf" class="btn-download" download><i class="fas fa-download"></i>Click Here</a>
+                                </div>
+                            </div>
+                            <div class="update-item">
+                                <div class="date">
+                                    <div class="day">3</div>
+                                    <div class="month">APR 2025</div>
+                                </div>
+                                <div class="text">
+                                    AI Innovation, State Consultation & UI/UX Workshop
+                                    <br>
+                                    <a href="sample.pdf" class="btn-download" download><i class="fas fa-download"></i>Click Here</a>
+                                </div>
+                            </div>
+                            <div class="update-item">
+                                <div class="date">
+                                    <div class="day">30</div>
+                                    <div class="month">MAR 2025</div>
+                                </div>
+                                <div class="text">
+                                    Yearly Performance Assessment – Intern Batch 3 & 4
+                                    <br>
+                                    <a href="sample.pdf" class="btn-download" download><i class="fas fa-download"></i>Click Here</a>
+                                </div>
+                            </div>
+                            <div class="update-item">
+                                <div class="date">
+                                    <div class="day">18</div>
+                                    <div class="month">MAR 2025</div>
+                                </div>
+                                <div class="text">
+                                    Result – Campus Recruitment Drive
+                                    <br>
+                                    <a href="sample.pdf" class="btn-download" download><i class="fas fa-download"></i>Click Here</a>
+                                </div>
+                            </div>
+                            <div class="update-item">
+                                <div class="date">
+                                    <div class="day">7</div>
+                                    <div class="month">MAR 2025</div>
+                                </div>
+                                <div class="text">
+                                    Final Project Demo Submission
+                                    <br>
+                                    <a href="sample.pdf" class="btn-download" download><i class="fas fa-download"></i>Click Here</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <section class="partners-section">
+      
+        <div class="logo-carousel">
+            <div class="carousel-track">
+                <a href="https://www.mponline.gov.in" target="_blank" rel="noopener noreferrer" class="logo-item">
+                    <img src="https://raw.githubusercontent.com/Amanpatel83/MPSEDCWebsite/main/29072020023537mp-online.png" alt="MP Online" />
+                
+                </a>
+                <a href="https://mp.mygov.in/" target="_blank" rel="noopener noreferrer" class="logo-item">
+                    <img src="https://raw.githubusercontent.com/Amanpatel83/MPSEDCWebsite/main/29072020023554my-gov.png" alt="MyGov MP" />
+                    
+                </a>
+                <a href="https://www.standupmitra.in/" target="_blank" rel="noopener noreferrer" class="logo-item">
+                    <img src="https://raw.githubusercontent.com/Amanpatel83/MPSEDCWebsite/main/29072020023606standup-india.png" alt="Stand Up India" />
+                    
+                </a>
+                <a href="https://data.gov.in/" target="_blank" rel="noopener noreferrer" class="logo-item">
+                    <img src="https://raw.githubusercontent.com/Amanpatel83/MPSEDCWebsite/main/29072020023443data-gov.png" alt="Data Gov" />
+            
+                </a>
+                <a href="https://www.digitalindia.gov.in/" target="_blank" rel="noopener noreferrer" class="logo-item">
+                    <img src="https://raw.githubusercontent.com/Amanpatel83/MPSEDCWebsite/main/29072020023522india-gov.png" alt="Digital India" />
+              
+                </a>
+                <a href="https://www.mponline.gov.in" target="_blank" rel="noopener noreferrer" class="logo-item">
+                    <img src="https://raw.githubusercontent.com/Amanpatel83/MPSEDCWebsite/main/29072020023537mp-online.png" alt="MP Online" />
+                
+                </a>
+                <a href="https://mp.mygov.in/" target="_blank" rel="noopener noreferrer" class="logo-item">
+                    <img src="https://raw.githubusercontent.com/Amanpatel83/MPSEDCWebsite/main/29072020023554my-gov.png" alt="MyGov MP" />
+            
+                </a>
+                <a href="https://www.standupmitra.in/" target="_blank" rel="noopener noreferrer" class="logo-item">
+                    <img src="https://raw.githubusercontent.com/Amanpatel83/MPSEDCWebsite/main/29072020023606standup-india.png" alt="Stand Up India" />
+                    
+                </a>
+                <a href="https://data.gov.in/" target="_blank" rel="noopener noreferrer" class="logo-item">
+                    <img src="https://raw.githubusercontent.com/Amanpatel83/MPSEDCWebsite/main/29072020023443data-gov.png" alt="Data Gov" />
+                
+                </a>
+                <a href="https://www.digitalindia.gov.in/" target="_blank" rel="noopener noreferrer" class="logo-item">
+                    <img src="https://raw.githubusercontent.com/Amanpatel83/MPSEDCWebsite/main/29072020023522india-gov.png" alt="Digital India" />
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div class="foot">
+        <footer class="footer">
+            <div class="container">
+                <div class="row text-start">
+                    <div class="col-md-3 col-sm-6">
+                        <h5>Important Links</h5>
+                        <ul>
+                            <li><a href="https://www.cdac.in" target="_blank"><i class="fas fa-microchip"></i> Centre for Development of Advanced Computing (C-DAC)</a></li>
+                            <li><a href="https://mp.gov.in" target="_blank"><i class="fas fa-globe"></i> Govt. of Madhya Pradesh</a></li>
+                            <li><a href="https://www.cert-in.org.in" target="_blank"><i class="fas fa-shield-alt"></i> Indian Computer Emergency Response Team</a></li>
+                            <li><a href="https://www.meity.gov.in" target="_blank"><i class="fas fa-code"></i> Ministry of Electronics & IT (GoI)</a></li>
+                            <li><a href="https://cmhelpline.mp.gov.in" target="_blank"><i class="fas fa-headset"></i> MP CM Helpline</a></li>
+                            <li><a href="https://www.csc.gov.in" target="_blank"><i class="fas fa-user-cog"></i> MP Customer Service Centres (CSC)</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <h5>&nbsp;</h5>
+                        <ul>
+                            <li><a href="https://invest.mp.gov.in" target="_blank"><i class="fas fa-industry"></i> MP Dept. of Industry & Investment Promotion</a></li>
+                            <li><a href="https://msme.mp.gov.in" target="_blank"><i class="fas fa-briefcase"></i> MP Dept. of Micro, Small & Medium Enterprises</a></li>
+                            <li><a href="https://dst.mp.gov.in" target="_blank"><i class="fas fa-flask"></i> MP Dept. of Science and Technology</a></li>
+                            <li><a href="https://finance.mp.gov.in" target="_blank"><i class="fas fa-coins"></i> MP Finance Department</a></li>
+                            <li><a href="https://gad.mp.gov.in" target="_blank"><i class="fas fa-users-cog"></i> MP General Administration Department</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <h5>&nbsp;</h5>
+                        <ul>
+                            <li><a href="https://www.invest.mp.gov.in" target="_blank"><i class="fas fa-city"></i> MP Industrial Development Corporation</a></li>
+                            <li><a href="#" target="_blank"><i class="fas fa-network-wired"></i> MP State Agency for Public Services</a></li>
+                            <li><a href="#" target="_blank"><i class="fas fa-handshake"></i> MP Venture Finance Limited</a></li>
+                            <li><a href="https://www.mponline.gov.in" target="_blank"><i class="fas fa-desktop"></i> MP Online Limited</a></li>
+                            <li><a href="https://www.nic.in" target="_blank"><i class="fas fa-building"></i> NIC (India)</a></li>
+                            <li><a href="https://mp.nic.in" target="_blank"><i class="fas fa-map-marker-alt"></i> NIC (MP)</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <h5>&nbsp;</h5>
+                        <ul>
+                            <li><a href="https://www.nisg.org" target="_blank"><i class="fas fa-university"></i> National Institute for Smart Government</a></li>
+                            <li><a href="https://india.gov.in" target="_blank"><i class="fas fa-link"></i> National Portal of India</a></li>
+                            <li><a href="https://niti.gov.in" target="_blank"><i class="fas fa-lightbulb"></i> NITI Ayog</a></li>
+                            <li><a href="https://www.stpi.in" target="_blank"><i class="fas fa-code-branch"></i> Software Technology Parks of India</a></li>
+                            <li><a href="https://guidelines.gov.in" target="_blank"><i class="fas fa-gavel"></i> Website Guidelines</a></li>
+                            <li><a href="#" target="_blank"><i class="fas fa-exclamation-triangle"></i> DWRS - Aapdasuraksha</a></li>
+                            <li><a href="#" target="_blank"><i class="fas fa-drone"></i> Drone Initiative (DaaS)</a></li>
+                            <li><a href="https://mpgeoportal.gov.in" target="_blank"><i class="fas fa-globe-africa"></i> MP Geoportal</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <div class="footer-bottom">
+            &copy; 2025 <strong>MPSeDC</strong>. All rights reserved.
+            <br/>
+            <a href="#">Disclaimer</a> |
+            <a href="#">Terms & Conditions</a> |
+            <a href="#">Copyright</a> |
+            <a href="#">Privacy</a> |
+            <a href="#">Feedback</a> |
+            <a href="#">Site Map</a>
+            <br/>
+            Designed & developed by Center of Excellence (CoE), <strong>MPSeDC</strong>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('Page loaded successfully! Projects, Updates, Partners, and Footer are ready.');
+        });
+    </script>
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+    const cards = document.querySelectorAll(".card");
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("show");
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.2 });
+
+    cards.forEach(card => {
+        observer.observe(card);
+    });
+});
+</script>
+</body>
+
+
+</html>
